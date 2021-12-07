@@ -1,0 +1,217 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    width: 100vw;
+    height: 100vh;
+    background-image: linear-gradient(#D7D8C9, #A4A68A);
+    background-attachment: fixed;
+    
+}
+.botao-adicionar{
+    background-image: radial-gradient(rgb(60, 255, 0), rgb(38, 87, 71));
+    color: white;
+    font-weight: bolder;
+    text-shadow: 0px 0px 3px black;
+    border-radius: 50%;
+    position: fixed;
+    bottom: 20px;
+    left: 50vw;
+    width: 50px;
+    transform: translate(-50%);
+    
+    
+
+}
+.botao-adicionar::before{
+    font-size: 35px;
+    content: "+";
+}
+
+.menu-deslizante{
+    padding: 20px 0;
+    width: 78vw;
+    background-color: #57523E;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border-bottom-right-radius: 20%;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.323);
+
+    position: absolute;
+    left: -100vw;
+    transition: .5s;
+    
+}
+
+.menu-deslizante--ativo {
+    left: 0;
+    transition: .5s;
+}
+
+
+textarea{
+    background-image: linear-gradient(#D7D8C9, #A4A68A );
+    padding: 4px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.botoes-deslizante{
+    display: flex;
+    justify-content: space-between;
+}
+
+.botao{
+    padding: 7px 10px;
+    border-radius: 8px;
+}
+
+.botao-salvar{
+    background-image: radial-gradient(rgb(60, 255, 0), #57523E);
+    color: white;
+    font-weight: bolder;
+    text-shadow: 1px 1px black;
+}
+.botao-cancelar-verde{
+    background-image: radial-gradient(#D94C1A, #57523E);
+    color: white;
+    font-weight: bolder;
+    text-shadow: 1px 1px black;
+}
+
+
+.nav-deslizante{
+    padding: 20px 0;
+    width: 78vw;
+    background-color: #57523E;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border-bottom-right-radius: 20%;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.323);
+
+    position: absolute;
+    left: -100vw;
+    transition: .5s;
+}
+
+.nav-deslizante--ativo {
+    left: 0;
+    transition: .5s;
+}
+
+
+.container-cards{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    
+}
+
+.post-it{
+    margin-top: 10px;
+    width: 46vw;
+    
+       
+}
+
+.texto{
+    padding:10px 5px 10px 5px;
+    font-size: 0.9rem;
+    background-image: linear-gradient(#c79e23, #F2BE24);
+    border: 2px solid #57523E;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    
+
+/*     -webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+     */
+}
+
+.xis{
+    width: 22px;
+    height: 20px;
+    margin: 5px;
+    background-image: radial-gradient(#D94C1A, #c79e23);
+    text-align: center;
+    text-shadow: 0 0 2px white;
+    padding-top: 3px;
+    border-radius: 20%;
+    font-weight: bolder;
+    
+  
+    float: right;
+}
+  
+.xis::after{
+    content: X;
+}
+  
+
+.botao-post-it{
+    display: flex;
+    justify-content: space-between;
+}
+
+.botao-editar{
+    background-image: radial-gradient(rgb(60, 255, 0), rgb(38, 87, 71));
+    color: white;
+    font-weight: bolder;
+    text-shadow: 0px 0px 3px black;
+}
+
+.esmaecer{
+	opacity: 0;
+	transition: 0.8s;
+}
+
+.rodape{
+    
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:1rem;
+    font-weight: bolder;
+    position: absolute;
+    right: 1%;
+    bottom: 1%;
+    
+    background-color: rgba(0, 0, 0, 0.213);
+    border-radius: 6px;
+    padding: 0 3px;
+    text-shadow: 1px 1px 1px rgba(255, 235, 205, 0.556);
+
+}
+
+a{
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    font-size: 13px ;
+}
+
+@media screen and (min-width: 600px){
+    a{
+        font-size: 23px ;
+    }
+    .nav-deslizante{
+        width: 35vw;
+    }
+
+    .menu-deslizante{
+        width: 35vw;
+    }
+
+    .post-it{
+        margin-top: 18px;
+        width: 22vw;
+        
+           
+    }
+
+}
