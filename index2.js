@@ -116,6 +116,7 @@ function criarCard(conteudo, cursor) {
         const menuNav = document.querySelector('.nav-deslizante')
     
         menuNav.classList.toggle('nav-deslizante--ativo');
+        document.querySelector('.botao-adicionar').classList.toggle('apaga-botao');
     })
 
 
@@ -209,50 +210,39 @@ function pegarDados(){
 
 document.querySelector(".nav__botao-editar").addEventListener("click", ()=>{
    salvarEdicao()
+   
 })
 
 document.querySelector(".botao-cancelar").addEventListener("click" ,()=>{
     var campoInformacoes = document.querySelector("[data-mensagem]");
     campoInformacoes.value = ""
+    document.querySelector('.menu-deslizante').classList.toggle('menu-deslizante--ativo')
+    document.querySelector('.botao-adicionar').classList.toggle('apaga-botao');
 });
 
 document.querySelector(".botao-salvar").addEventListener("click", ()=>{
+    document.querySelector('.menu-deslizante').classList.toggle('menu-deslizante--ativo')
     pegarDados()
+    document.querySelector('.botao-adicionar').classList.toggle('apaga-botao');
 });
 
-function adicionarEfeitoDeslizanteBotoes(){
 
-    const botaoMenu = document.querySelectorAll('.botao-deslizante')
-    const menu = document.querySelector('.menu-deslizante')
+document.querySelector('.botao-adicionar').addEventListener('click', () => {
 
-    botaoMenu.forEach(botao => {
+    document.querySelector('.menu-deslizante').classList.toggle('menu-deslizante--ativo')
+    document.querySelector('.botao-adicionar').classList.toggle('apaga-botao');
+});
 
-        botao.addEventListener('click', () => {
-        menu.classList.toggle('menu-deslizante--ativo')
-        });
-    });
-}
 
-function adicionarEfeitoBotaoEditar(){
 
-    const botaoEditar = document.querySelectorAll(".botao-editar")
-    const menuNav = document.querySelector('.nav-deslizante')
-
-    botaoEditar.forEach(botao => {
-        
-        botao.addEventListener("click", ()=>{
+document.querySelector(".botao-editar").addEventListener("click", ()=>{
     
-            menuNav.classList.toggle('nav-deslizante--ativo');
-        })
-    })
-}
+    document.querySelector('.nav-deslizante').classList.toggle('nav-deslizante--ativo');
+    document.querySelector('.botao-adicionar').classList.toggle('apaga-botao');
+})
+
 
 criaBancoDeDados();
-
-adicionarEfeitoDeslizanteBotoes();
-
-adicionarEfeitoBotaoEditar();
-
 
 
 
