@@ -39,6 +39,7 @@ body{
     position: absolute;
     left: -100vw;
     transition: .5s;
+    z-index: 3;
     
 }
 
@@ -94,6 +95,7 @@ textarea{
     position: absolute;
     left: -100vw;
     transition: .5s;
+    z-index: 3;
 }
 
 .nav-deslizante--ativo {
@@ -102,7 +104,7 @@ textarea{
 }
 
 
-.container-cards{
+section{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
@@ -111,19 +113,25 @@ textarea{
 
 .post-it{
     margin-top: 10px;
-    width: 46vw;
+    width: 30vw;
     
        
 }
 
-.texto{
+section div div p{
+    font-family: 'Caveat', cursive;
     padding:10px 5px 10px 5px;
-    font-size: 0.9rem;
-    background-image: linear-gradient(#c79e23, #F2BE24);
-    border: 2px solid #57523E;
+    font-size: 1.2rem;
+    background-image: linear-gradient(#F200AB, #F200AB);
+    /* border: 1px solid #57523E;
     border-bottom-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-top-right-radius: 10px; */
+    min-height: 90px;
+    text-align: center;
+    transition: .15s linear;
+    transform:rotate(01deg)
     
+} 
 
 /*     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -131,29 +139,58 @@ textarea{
        -moz-user-select: none;
         -ms-user-select: none;
             user-select: none;
-     */
+*/
+
+section div:nth-child(even) div p{
+    background-image: linear-gradient(#F1D904, #F1D904);
+    transform:rotate(3deg);
+    position: relative;
+    z-index: 1;
+}
+
+section div:nth-child(3n) div p{
+    background-image: linear-gradient(#05C8E6, #05C8E6);
+    transform:rotate(-2deg);
+    position: relative;
+    z-index: 1;
+}
+
+section div:nth-child(5n) div p{
+    background-image: linear-gradient(#BDE43B, #BDE43B);
+    transform:rotate(-4deg);
+    position: relative;
+    z-index: 1;
+    
+   
+}
+
+section div div p:hover{
+    box-shadow:10px 10px 7px rgba(0,0,0,.7);
+  
 }
 
 
 
-
-
 .xis{
-    width: 22px;
+    width: 20px;
     height: 20px;
     margin: 5px;
-    background-image: radial-gradient(#D94C1A, transparent);
+    background-image: radial-gradient(#00000060, transparent);
     text-align: center;
     text-shadow: 0 0 2px white;
     padding-top: 3px;
     border-radius: 20%;
     font-weight: bolder;
+    font-size: 13px;
+    position: relative;
+    z-index: 2;
     
   
     float: right;
 }
   
 .xis::after{
+    
     content: X;
 }
   
