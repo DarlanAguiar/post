@@ -75,14 +75,17 @@ function salvarEdicao () {
     let listaParaAdicionar = localParaAdicionar.objectStore(nomeDaLista);
 
    
-    let local = listaParaAdicionar.get(localId);
+    // let local = listaParaAdicionar.get(localId);
 
-    local.onsuccess = function(e) {
-        var data = e.target.result;
-        data.mensagem = lembrete;
-        listaParaAdicionar.put(data);
-    }
+    // local.onsuccess = function(e) {
+    //     var data = e.target.result;
 
+    //     console.log(`Data ${JSON.stringify(data)} localId: ${localId}`)
+    //     data.mensagem = lembrete;
+    //     listaParaAdicionar.put(data);
+    // }
+
+    listaParaAdicionar.put({id: localId, mensagem: lembrete});
     mostrarCardNaTela () 
 
 
