@@ -25,6 +25,7 @@ body{
     content: "+";
 }
 
+
 .menu-deslizante{
     padding: 20px 0;
     width: 78vw;
@@ -48,6 +49,9 @@ body{
     left: 0;
     transition: .5s;
 }
+.area-digitavel{
+    width: min-content;
+}
 
 
 textarea{
@@ -55,6 +59,7 @@ textarea{
     padding: 4px;
     border-bottom-left-radius: 10px;
     border-top-right-radius: 10px;
+    
 }
 
 .botoes-deslizante{
@@ -89,19 +94,37 @@ textarea{
     flex-direction: row;
     justify-content: center;
     border-bottom-right-radius: 20%;
+    border-top-left-radius: 20%;
     border-bottom: 1px solid black;
     border-right: 1px solid black;
     box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.323);
 
     position: absolute;
-    left: -100vw;
+    top: -100vw;
+    left: 50%;
+    transform: translate(-50%);
     transition: .5s;
     z-index: 3;
 }
 
 .nav-deslizante--ativo {
-    left: 0;
+    top: 0;
+   
     transition: .5s;
+}
+
+.div-busca{
+    display: flex;
+    justify-content: end;
+}
+.filtro{
+    font-family: 'Caveat', cursive;;
+    width: 33vw;
+    border-radius: 5px;
+    background-image: linear-gradient(90deg, #f200a954, #f1d9045b, #05c8e68e, #bde43b96 );
+    padding-left: 5px;
+    
+    
 }
 
 
@@ -171,17 +194,28 @@ section div div p:hover{
 }
 
 
+h4{
+    position: relative;
+    z-index: 2;
+    font-size: 20px;
+    font-family: 'Caveat', cursive;
+    float: left;
+    padding-left: 6px;
+    padding-top: 3px;
+    text-decoration: underline;
+    width: 70%;
 
+}
 .xis{
-    width: 18px;
+    width: 16px;
     height: 17px;
-    margin: 5px;
+    margin: 5px 5px 18px 5px;
     /* background-image: radial-gradient(#00000060, transparent); */
     text-align: center;
     text-shadow: 0 0 2px white;
     padding-top: 3px;
     border-radius: 20%;
-    box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.316);
+    box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.234);
 
     font-size: 13px;
     position: relative;
@@ -193,7 +227,7 @@ section div div p:hover{
   
 .xis::after{
     
-    content: X;
+    content: x;
 }
   
 
@@ -242,6 +276,12 @@ a{
 .apaga-botao{
     display: none;
 }
+
+.invisivel{
+	
+	display: none;
+}
+
 
 @media screen and (min-width: 600px){
     a{

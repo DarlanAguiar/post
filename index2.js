@@ -37,14 +37,14 @@ function criaBancoDeDados () {
     }
 }
 
-function salvarDados (lembrete) {
+function salvarDados (conteudoTitulo, lembrete) {
     
    
     let localParaAdicionar = bancoDeDados.transaction([nomeDaLista], "readwrite");
 
     let listaParaAdicionar = localParaAdicionar.objectStore(nomeDaLista);
 
-    let novaMensagem = {mensagem: lembrete};
+    let novaMensagem = {titulo: conteudoTitulo, mensagem: lembrete};
 
     listaParaAdicionar.add(novaMensagem);
 
@@ -59,15 +59,18 @@ const abrirMenuEditar = (click) =>{
     const paiDoAlvo = click.target.parentNode;
     const voDoalvo = paiDoAlvo.parentNode;
     
+    const titulo = voDoalvo.querySelector("h4").textContent;
     const texto = voDoalvo.querySelector("p").textContent;
 
+    let tituloEdicao = document.getElementById("titulo-editado");
+    tituloEdicao.value = titulo
     let campoDeEdiçao = document.getElementById("mensagen-editada");
     campoDeEdiçao.value = texto
 }
 
 function salvarEdicao () {
 
-
+    const titulo = document.getElementById("titulo-editado").value;
     const lembrete = document.getElementById("mensagen-editada").value;
 
     let localParaAdicionar = bancoDeDados.transaction([nomeDaLista], "readwrite");
@@ -85,20 +88,18 @@ function salvarEdicao () {
     //     listaParaAdicionar.put(data);
     // }
 
-    listaParaAdicionar.put({id: localId, mensagem: lembrete});
+    listaParaAdicionar.put({id: localId, titulo: titulo, mensagem: lembrete});
     mostrarCardNaTela () 
-
-
-
-   
+ 
 }
 
-function criarCard(conteudo, cursor) {
+function criarCard(titulo, conteudo, cursor) {
 
     let div = document.createElement("div");
     div.classList.add("post-it");
 
     let divtexto = document.createElement("div");
+    divtexto.classList.add("textos");
 
     let divFilha = document.createElement("div");
     divFilha.classList.add("xis");
@@ -107,10 +108,24 @@ function criarCard(conteudo, cursor) {
     divFilha.setAttribute("data-id", cursor.value.id);
     divFilha.addEventListener("click", removerItem);
     divFilha.addEventListener("click", esmaecerItem);
+
+    let h4titulo = document.createElement("h4");
+    h4titulo.textContent = titulo;
+    h4titulo.classList.add("filtrar");
+    h4titulo.setAttribute("data-id", cursor.value.id)
+    h4titulo.addEventListener('click', abrirMenuEditar);
+    h4titulo.addEventListener("click", ()=>{
+
+        const menuNav = document.querySelector('.nav-deslizante')
     
+        menuNav.classList.toggle('nav-deslizante--ativo');
+        document.querySelector('.botao-adicionar').classList.toggle('apaga-botao');
+    })
+
 
     let pConteudo = document.createElement("p");
-    pConteudo.classList.add("texto")
+    pConteudo.classList.add("texto");
+    pConteudo.classList.add("filtrar");
     pConteudo.textContent = conteudo;
     pConteudo.setAttribute("data-id", cursor.value.id)
     pConteudo.addEventListener('click', abrirMenuEditar);
@@ -122,21 +137,18 @@ function criarCard(conteudo, cursor) {
         document.querySelector('.botao-adicionar').classList.toggle('apaga-botao');
     })
 
-
     let divBotoes = document.createElement("div");
     divBotoes.classList.add("botao-post-it");
 
-
-    
-    
-
     divtexto.appendChild(divFilha);
+    divtexto.appendChild(h4titulo);
+
     divtexto.appendChild(pConteudo);
+    
 
-  
-
-        
     div.appendChild(divtexto);
+    
+    console.log(div)
 
 
     return div;
@@ -182,9 +194,11 @@ function mostrarCardNaTela(){
 
         if(cursor){
 
+            const titulo = cursor.value.titulo
+
             const conteudo = cursor.value.mensagem
 
-            const card = criarCard(conteudo, cursor); 
+            const card = criarCard(titulo, conteudo, cursor); 
         
             local.appendChild(card)
 
@@ -193,21 +207,68 @@ function mostrarCardNaTela(){
     }
 }
 
+
+
 function pegarDados(){
     
     var campoInformacoes = document.querySelector("[data-mensagem]");
     var conteudo = campoInformacoes.value;
+    var campoTitulo = document.querySelector("[data-titulo]");
+    var conteudoTitulo = campoTitulo.value;
     
     if(conteudo.length > 0){
         
-        salvarDados(conteudo);
+        salvarDados(conteudoTitulo, conteudo);
                
         campoInformacoes.value = ""
+        campoTitulo.value = ""
 
     }else{
         alert("Esqueceu de digitar o seu lembrete")
+        campoInformacoes.value = ""
+        campoTitulo.value = ""
+        
     }
 }
+
+// filtrar
+
+let campoDigitavelBusca = document.querySelector(".filtro");
+
+    campoDigitavelBusca.addEventListener("input", () => {
+
+        var camposDeBusca = document.querySelectorAll(".textos");
+
+        if(campoDigitavelBusca.value.length > 0){
+
+            camposDeBusca.forEach((elemento, indice) => {
+
+                let conteudoTitulo = elemento.querySelector("p").textContent;
+                let conteudoTexto = elemento.querySelector("h4").textContent;
+
+                let conteudoTotal = conteudoTitulo.concat(conteudoTexto);
+
+                console.log(conteudoTotal)
+
+                let expressao = new RegExp(campoDigitavelBusca.value, "i")
+
+                if(expressao.test(conteudoTotal)){
+                    elemento.parentNode.classList.remove("invisivel");
+                   
+                }else{
+
+                    elemento.parentNode.classList.add("invisivel");
+                }
+            })
+        }else{
+            camposDeBusca.forEach(elemento => {
+                
+                elemento.parentNode.classList.remove("invisivel");
+            })
+        }
+    })
+
+
 
 // Eventos
 
@@ -219,6 +280,9 @@ document.querySelector(".nav__botao-editar").addEventListener("click", ()=>{
 document.querySelector(".botao-cancelar").addEventListener("click" ,()=>{
     var campoInformacoes = document.querySelector("[data-mensagem]");
     campoInformacoes.value = ""
+    var campoTitulo = document.querySelector("[data-titulo]");
+    campoTitulo.value = ""
+
     document.querySelector('.menu-deslizante').classList.toggle('menu-deslizante--ativo')
     document.querySelector('.botao-adicionar').classList.toggle('apaga-botao');
 });
@@ -250,45 +314,3 @@ criaBancoDeDados();
 
 
 
-
-
-
-
-/* 
-
-var longclick = function (cb) {
-var min = 1500;
-var max = 9000;
-var time, self, timeout, event;
-
-function reset() {
-    clearTimeout(timeout);
-    timeout = null;
-}
-
-window.addEventListener('mouseup', reset); // caso o mouseup ocorra fora do elemento
-    return function (e) {
-        if (!self) {
-            self = this;
-            self.addEventListener('mouseup', function (e) {
-                e.stopPropagation(); // para não subir no DOM
-                var interval = new Date().getTime() - time;
-                if (timeout && interval > min) cb.call(self, event);
-                reset();
-            });
-        }
-        event = e;
-        time = new Date().getTime();
-
-        if (e.type == 'mousedown') timeout = setTimeout(reset, max);
-    };
-};
-
-
-var handler = longclick(function (e) {
-    alert('clicado entre 2 e 4 segundos! ' + e.type);
-   
-});
-
-var cardTexto = document.querySelectorAll(".texto");
-.addEventListener('mousedown', handler); */
